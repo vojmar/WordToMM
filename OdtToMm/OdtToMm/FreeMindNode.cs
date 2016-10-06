@@ -7,17 +7,21 @@ using System.Threading.Tasks;
 
 namespace OdtToMm
 {
+    /// <summary>
+    /// Basic data format for WordToMM, used for storing data parsed from word and provide readable format for parsing to mm.
+    /// </summary>
     public class FreeMindNode
     {
 
         static int lastId;
 
-
         public int id { get; private set; }
         public int parentId { get; private set; }
         public string text { get; private set; }
         private bool topNode;
-
+        /// <summary>
+        /// Constuctor for FreeMindNode, this constructor creates top node.
+        /// </summary>
         public FreeMindNode()
         {
             lastId = 0;
@@ -25,6 +29,11 @@ namespace OdtToMm
             topNode = true;
         }
         
+        /// <summary>
+        /// Consturctor for FreeMindNode.
+        /// </summary>
+        /// <param name="parentId">ID of parent node.</param>
+        /// <param name="text">Text node contains.</param>
         public FreeMindNode(int parentId, string text)
         {
             lastId++;
@@ -35,21 +44,31 @@ namespace OdtToMm
         }
     }
 
+    /// <summary>
+    /// ICollection derived class for storing nodes in collection.
+    /// </summary>
     public class FreeMindNodeCollection : ICollection
     {
         private object syncRoot;
         private FreeMindNode[] col;
-
+        /// <summary>
+        /// Creates empty FreeMindNodeCollection
+        /// </summary>
         public FreeMindNodeCollection()
         {
             this.col = new FreeMindNode[0];
         }
-
+        /// <summary>
+        /// Creates FreeMindNodeCollection from FreeMindNode array.
+        /// </summary>
+        /// <param name="nodeArray">Entries to save in newly created collection.</param>
         public FreeMindNodeCollection(FreeMindNode[] nodeArray)
         {
             this.col = nodeArray;
         }
-
+        /// <summary>
+        /// Number of FreeMindNodes this collection contains.
+        /// </summary>
         public int Count
         {
             get
@@ -57,12 +76,16 @@ namespace OdtToMm
                 return this.col.Length;
             }
         }
-
+        /// <summary>
+        /// Returns whether the collection is locked and synchronised for access from multiple threads.
+        /// </summary>
         public bool IsSynchronized
         {
             get { return (this.syncRoot != null) ? true : false; }
         }
-
+        /// <summary>
+        /// Returns object this collection locks on when synchronised.
+        /// </summary>
         public object SyncRoot
         {
             get
@@ -70,7 +93,9 @@ namespace OdtToMm
                 return syncRoot;
             }
         }
-
+        /// <summary>
+        /// Returns object this collection locks on when synchronised.
+        /// </summary>
         bool ICollection.IsSynchronized
         {
             get
@@ -78,7 +103,11 @@ namespace OdtToMm
                 return IsSynchronized;
             }
         }
-
+        /// <summary>
+        ///Copies the elements of the FreeMindNodeCollection to an Array, starting at a particular Array index.
+        /// </summary>
+        /// <param name="array">The one-dimensional Array that is the destination of the elements copied from ICollection.The Array must have zero-based indexing.</param>
+        /// <param name="index">The zero-based index in array at which copying begins.</param>
         public void CopyTo(Array array, int index)
         {
             throw new NotImplementedException();
@@ -92,13 +121,18 @@ namespace OdtToMm
 
         IEnumerator IEnumerable.GetEnumerator()
         {
-            throw new NotImplementedException();
+            return (IEnumerator)GetEnumerator();
         }
-
+        /// <summary>
+        /// Adds FreeMindNode to this FreeMindNodeCollection
+        /// </summary>
+        /// <param name="node">FreeMindNode to be added to FreeMindNodeCollection</param>
         public void Add(FreeMindNode node)
         {
             throw new NotImplementedException();
             //TODO: Implement
+
+            //TODO: Find most efficient way to increase the size of array (tmp +1 vs tmp +half of the size)
         }
     }
 
