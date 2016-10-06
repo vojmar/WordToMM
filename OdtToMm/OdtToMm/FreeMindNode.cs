@@ -8,7 +8,10 @@ namespace OdtToMm
 {
     class FreeMindNode
     {
+
         static int lastId;
+
+
         public int id { get; private set; }
         public int parentId { get; private set; }
         public string text { get; private set; }
@@ -28,11 +31,6 @@ namespace OdtToMm
             this.parentId = parentId;
             this.text = text;
             this.topNode = false;
-        }
-
-        private void blabal()
-        {
-
         }
     }
 }
