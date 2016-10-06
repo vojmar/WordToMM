@@ -27,6 +27,7 @@ namespace OdtToMm
             this.id = lastId;
             this.parentId = parentId;
             this.text = text;
+            this.topNode = false;
         }
     }
 }
