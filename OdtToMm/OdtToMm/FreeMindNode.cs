@@ -29,5 +29,10 @@ namespace OdtToMm
             this.text = text;
             this.topNode = false;
         }
+
+        private void blabal()
+        {
+
+        }
     }
 }
