@@ -43,7 +43,6 @@ namespace OdtToMm
             this.topNode = false;
         }
     }
-
     /// <summary>
     /// ICollection derived class for storing nodes in collection.
     /// </summary>
@@ -129,10 +128,8 @@ namespace OdtToMm
         /// <param name="node">FreeMindNode to be added to FreeMindNodeCollection</param>
         public void Add(FreeMindNode node)
         {
-            throw new NotImplementedException();
-            //TODO: Implement
-
-            //TODO: Find most efficient way to increase the size of array (tmp +1 vs tmp +half of the size)
+            this.col = new FreeMindNode[col.Length +1];
+            col[col.Length-1] = node;
         }
     }
 
