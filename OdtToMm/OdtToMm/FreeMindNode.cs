@@ -47,7 +47,7 @@ namespace OdtToMm
         /// <summary>
         /// Parses FreeMindNote into XElement
         /// </summary>
-        /// <returns></returns>
+        /// <returns>XElement containing MindMap XML node</returns>
         public XElement ParseNode()
         {
             XElement n;
@@ -69,6 +69,7 @@ namespace OdtToMm
             return n;
         }
     }
+
     /// <summary>
     /// ICollection derived class for storing nodes in collection.
     /// </summary>
