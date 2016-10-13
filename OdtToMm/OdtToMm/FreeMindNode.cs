@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace OdtToMm
 {
@@ -41,6 +42,31 @@ namespace OdtToMm
             this.parentId = parentId;
             this.text = text;
             this.topNode = false;
+        }
+        
+        /// <summary>
+        /// Parses FreeMindNote into XElement
+        /// </summary>
+        /// <returns></returns>
+        public XElement ParseNode()
+        {
+            XElement n;
+            if (this.topNode)
+            {
+                n = new XElement("map");
+                n.SetAttributeValue("version", "1.0.1");
+            }
+            else
+            {
+                n = new XElement("node");
+                if(this.text == null)
+                {
+                    this.text = "";
+                }
+                n.SetAttributeValue("TEXT", this.text);
+                
+            }
+            return n;
         }
     }
     /// <summary>
