@@ -12,7 +12,6 @@ namespace OdtToMm
         /// <summary>
         /// Provides methods for convertion means
         /// </summary>
-        /// <param name="nodeCollection">Collection to use when converting</param>
         public MMParser()
         {
 
