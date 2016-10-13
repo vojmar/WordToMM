@@ -6,6 +6,7 @@ using System.Xml;
 using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
+using System.Xml.Linq;
 
 namespace OdtToMm
 {
@@ -13,7 +14,7 @@ namespace OdtToMm
     {
         private const string tmpPath = "temp";
         private string filePath;
-        private XmlDocument odtContent;
+        private XDocument odtContent;
         
         /// <param name="odtFilePath">Full path to .odt file</param>
         public OdtParser(string odtFilePath)
@@ -39,8 +40,11 @@ namespace OdtToMm
         }
         private void LoadOdt()
         {
-            odtContent = new XmlDocument();
-            odtContent.Load(tmpPath+ @"/content.xml"); //TODO: Check path! (not sure if its correct)
+            odtContent = XDocument.Load(tmpPath + @"/content.xml");
+            
+
+            //odtContent = new XmlDocument();
+            //odtContent.Load(tmpPath+ @"/content.xml"); //TODO: Check path! (not sure if its correct)
         }
     }
 }
