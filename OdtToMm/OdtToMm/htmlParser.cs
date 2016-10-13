@@ -6,9 +6,9 @@ using System.Threading.Tasks;
 
 namespace OdtToMm
 {
-    static class htmlParser
+    public static class htmlParser
     {
-        static string htmlParse(string input)
+        public static string htmlParse(string input)
         {
 
 
