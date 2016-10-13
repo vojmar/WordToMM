@@ -19,7 +19,7 @@ namespace OdtToMm
         public int id { get; private set; }
         public int parentId { get; private set; }
         public string text { get; private set; }
-        private bool topNode;
+        public bool topNode { get; private set; }
         /// <summary>
         /// Constuctor for FreeMindNode, this constructor creates top node.
         /// </summary>
@@ -42,31 +42,6 @@ namespace OdtToMm
             this.parentId = parentId;
             this.text = text;
             this.topNode = false;
-        }
-        
-        /// <summary>
-        /// Parses FreeMindNote into XElement
-        /// </summary>
-        /// <returns>XElement containing MindMap XML node</returns>
-        public XElement ParseNode()
-        {
-            XElement n;
-            if (this.topNode)
-            {
-                n = new XElement("map");
-                n.SetAttributeValue("version", "1.0.1");
-            }
-            else
-            {
-                n = new XElement("node");
-                if(this.text == null)
-                {
-                    this.text = "";
-                }
-                n.SetAttributeValue("TEXT", this.text);
-                
-            }
-            return n;
         }
     }
 
