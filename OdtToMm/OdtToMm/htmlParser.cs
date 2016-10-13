@@ -6,9 +6,26 @@ using System.Threading.Tasks;
 
 namespace OdtToMm
 {
-    class htmlParser
+    static class htmlParser
     {
+        static string htmlParse(string input)
+        {
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+            throw new NotImplementedException();
+        }
 
 
     }
