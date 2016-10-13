@@ -8,7 +8,7 @@ namespace OdtToMm
 {
     public static class htmlParser
     {
-        public static string htmlParse(string input)
+        public static string htmlParse(string input) //metoda pro převod textu na html entity a obráceně
         {
 
 
