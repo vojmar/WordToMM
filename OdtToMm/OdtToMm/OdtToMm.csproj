@@ -55,6 +55,7 @@
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
     <Compile Include="FreeMindNode.cs" />
+    <Compile Include="htmlParser.cs" />
     <Compile Include="OdtParser.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
