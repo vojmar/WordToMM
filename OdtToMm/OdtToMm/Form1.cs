@@ -12,9 +12,46 @@ namespace OdtToMm
 {
     public partial class Form1 : Form
     {
+        private OpenFileDialog ODTofd;
+        private SaveFileDialog MMsfd;
+        private string ODTFilePath;
+        private string MMFilePath;
         public Form1()
         {
             InitializeComponent();
+            ODTofd = new OpenFileDialog();
+            MMsfd = new SaveFileDialog();
+        }
+
+        private void ODTbtn_Click(object sender, EventArgs e)
+        {
+            if (ODTofd.ShowDialog() == DialogResult.OK)
+            {
+                ODTFilePath = ODTofd.FileName;
+            }
+        }
+
+        private void MMbtn_Click(object sender, EventArgs e)
+        {
+            if (MMsfd.ShowDialog() == DialogResult.OK)
+            {
+                MMFilePath = MMsfd.FileName;
+            }
+        }
+
+        private void Cbtn_Click(object sender, EventArgs e)
+        {
+            if (
+                (ODTFilePath != null) &&
+                (ODTFilePath != "") &&
+                (MMFilePath != null) &&
+                (MMFilePath != "")
+               )
+            {
+                OdtParser odtParser = new OdtParser(ODTFilePath);
+                MMParser mmParser = new MMParser(MMFilePath);
+                //TODO: Just add some magic
+            }
         }
     }
 }
