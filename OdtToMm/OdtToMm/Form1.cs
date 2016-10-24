@@ -27,6 +27,7 @@ namespace OdtToMm
         {
             if (ODTofd.ShowDialog() == DialogResult.OK)
             {
+                ODTtb.Text = ODTofd.FileName;
                 ODTFilePath = ODTofd.FileName;
             }
         }
@@ -35,6 +36,7 @@ namespace OdtToMm
         {
             if (MMsfd.ShowDialog() == DialogResult.OK)
             {
+                MMtb.Text = MMsfd.FileName;
                 MMFilePath = MMsfd.FileName;
             }
         }

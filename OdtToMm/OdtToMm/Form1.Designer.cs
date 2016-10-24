@@ -57,6 +57,9 @@
             // 
             // Cbtn
             // 
+            this.Cbtn.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.Cbtn.Font = new System.Drawing.Font("Microsoft Sans Serif", 15.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Cbtn.Location = new System.Drawing.Point(12, 78);
             this.Cbtn.Name = "Cbtn";
@@ -68,6 +71,8 @@
             // 
             // ODTtb
             // 
+            this.ODTtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.ODTtb.Location = new System.Drawing.Point(130, 0);
             this.ODTtb.Name = "ODTtb";
             this.ODTtb.ReadOnly = true;
@@ -76,6 +81,8 @@
             // 
             // MMtb
             // 
+            this.MMtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
             this.MMtb.Location = new System.Drawing.Point(130, 31);
             this.MMtb.Name = "MMtb";
             this.MMtb.ReadOnly = true;
@@ -92,6 +99,7 @@
             this.Controls.Add(this.Cbtn);
             this.Controls.Add(this.MMbtn);
             this.Controls.Add(this.ODTbtn);
+            this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
             this.Name = "Form1";
             this.Text = "Form1";
             this.ResumeLayout(false);
