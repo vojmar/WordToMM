@@ -21,12 +21,15 @@ namespace OdtToMm
         public OdtParser(string odtFilePath)
         {
             this.filePath = odtFilePath;
+
         }
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
         public FreeMindNodeCollection GetOdtContent()
         {
+            ExtractOdt();
+            LoadOdt();
             FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
             #region XML Extraction
             XmlNode xmlTitleNode = odtContent.GetElementsByTagName("text:p")[0];
@@ -43,7 +46,7 @@ namespace OdtToMm
             foreach (XmlNode node in xmlNodes)
             {
                 #region Parent id calculation
-                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value);
+                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_",""));
                 int parentId = 0;
                 if (layer < lastLayer)
                 {
@@ -70,6 +73,7 @@ namespace OdtToMm
                 nodeCol.Add(new FreeMindNode(parentId, node.InnerText, currentId));
                 currentId++;
             }
+            DeleteOdtFiles();
             return nodeCol;
         }
         private void ExtractOdt()

@@ -52,6 +52,7 @@ namespace OdtToMm
             {
                 OdtParser odtParser = new OdtParser(ODTFilePath);
                 MMParser mmParser = new MMParser(MMFilePath);
+                odtParser.GetOdtContent();
                 //TODO: Just add some magic
             }
         }
