@@ -46,11 +46,16 @@ namespace OdtToMm
             foreach (XmlNode node in xmlNodes)
             {
                 #region Parent id calculation
-                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_",""));
+                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_", ""));
                 int parentId = 0;
                 if (layer < lastLayer)
                 {
-                    tree.Pop();
+                    int difference = lastLayer - layer;
+                    for (int i = 0; i < difference; i++)
+                    {
+                        tree.Pop();
+                    }
+                    
                     tree.Pop();
                     parentId = tree.Peek();
                     tree.Push(currentId);
@@ -58,6 +63,7 @@ namespace OdtToMm
                 }
                 else if (layer > lastLayer)
                 {
+                    int difference = layer - lastLayer;
                     parentId = tree.Peek();
                     tree.Push(currentId);
                     lastLayer = layer;

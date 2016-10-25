@@ -43,7 +43,8 @@ namespace OdtToMm
 
         private void Cbtn_Click(object sender, EventArgs e)
         {
-
+            ODTFilePath = @"C:\Users\vojmar\Desktop\Testing File.odt";
+            MMFilePath = "ad";
             if (
                 (ODTFilePath != null) &&
                 (ODTFilePath != "") &&
@@ -54,6 +55,7 @@ namespace OdtToMm
                 OdtParser odtParser = new OdtParser(ODTFilePath);
                 MMParser mmParser = new MMParser(MMFilePath);
                 var fmnCollection = odtParser.GetOdtContent();
+                MessageBox.Show("");
                 //TODO: Just add some magic
             }
         }
