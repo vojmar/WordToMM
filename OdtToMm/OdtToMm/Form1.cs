@@ -43,6 +43,7 @@ namespace OdtToMm
 
         private void Cbtn_Click(object sender, EventArgs e)
         {
+
             if (
                 (ODTFilePath != null) &&
                 (ODTFilePath != "") &&
@@ -52,7 +53,7 @@ namespace OdtToMm
             {
                 OdtParser odtParser = new OdtParser(ODTFilePath);
                 MMParser mmParser = new MMParser(MMFilePath);
-                odtParser.GetOdtContent();
+                var fmnCollection = odtParser.GetOdtContent();
                 //TODO: Just add some magic
             }
         }

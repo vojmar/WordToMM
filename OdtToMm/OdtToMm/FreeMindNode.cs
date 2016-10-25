@@ -127,7 +127,12 @@ namespace OdtToMm
         /// <param name="node">FreeMindNode to be added to FreeMindNodeCollection</param>
         public void Add(FreeMindNode node)
         {
+            var tmp = this.col;
             this.col = new FreeMindNode[col.Length +1];
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                col[i] = tmp[i];
+            }
             col[col.Length-1] = node;
         }
     }
