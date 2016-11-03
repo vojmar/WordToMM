@@ -15,9 +15,18 @@ namespace OdtToMm
         public static string htmlParse(string input)
         {
             return HttpUtility.HtmlDecode(input);
-            throw new NotImplementedException();
+            //check for compilatione error
+            bool error = true;
+
+            if (error == true) // still error ?
+            {
+                error = false;
+            }
+
+            if (error == true) // and now ?
+            {
+                error = false;
+            }
         }
-
-
     }
 }
