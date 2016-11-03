@@ -10,28 +10,25 @@ using System.Xml.Linq;
 
 namespace OdtToMm
 {
-    class OdtParser
+    static class OdtParser
     {
         #region var's declaration
         private const string tmpPath = "temp";
-        private string filePath;
-        private XmlDocument odtContent;
         #endregion var's declaration
         /// <param name="odtFilePath">Full path to .odt file</param>
-        public OdtParser(string odtFilePath)
+        public static FreeMindNodeCollection ParseOdt(string odtFilePath)
         {
-            this.filePath = odtFilePath;
-
+            ExtractOdt(odtFilePath);
+            var odtContent = LoadOdt();
+            return GetOdtContent(odtContent);
         }
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
-        public FreeMindNodeCollection GetOdtContent()
+        private static FreeMindNodeCollection GetOdtContent(XmlDocument odtContent)
         {
-            ExtractOdt();
-            LoadOdt();
             FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
-            #region XML Extraction
+            #region XML content extraction
             XmlNode xmlTitleNode = odtContent.GetElementsByTagName("text:p")[0];
             FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
             nodeCol.Add(titleNode);
@@ -82,19 +79,20 @@ namespace OdtToMm
             DeleteOdtFiles();
             return nodeCol;
         }
-        private void ExtractOdt()
+        private static void ExtractOdt(string filePath)
         {
             Directory.CreateDirectory(tmpPath);
             ZipFile.ExtractToDirectory(filePath, tmpPath);
         }
-        private void DeleteOdtFiles()
+        private static void DeleteOdtFiles()
         {
             Directory.Delete(tmpPath, true);
         }
-        private void LoadOdt()
+        private static XmlDocument LoadOdt()
         {
-            odtContent = new XmlDocument();
+            var odtContent = new XmlDocument();
             odtContent.Load(tmpPath + @"/content.xml");
+            return odtContent;
         }
     }
 }
