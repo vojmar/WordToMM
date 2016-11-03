@@ -2,28 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.Web;
 
 namespace OdtToMm
 {
     public static class htmlParser
-    {
-        public static string htmlParse(string input) //metoda pro převod textu na html entity a obráceně
+    {   
+        /// <summary>
+        /// hoď tam entitu a možná to vyhodí znak
+        /// </summary>
+        public static string htmlParse(string input)
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            return HttpUtility.HtmlDecode(input);
             throw new NotImplementedException();
         }
 
