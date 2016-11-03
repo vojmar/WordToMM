@@ -10,12 +10,14 @@ namespace OdtToMm
     public static class htmlParser
     {   
         /// <summary>
-        /// hoď tam entitu a možná to vyhodí znak
+        /// Parses HTML Entities in string into readable characters
         /// </summary>
         public static string htmlParse(string input)
         {
+            //NOTHING CAN GO WRONG!!!
+
+            //SRSLY
             return HttpUtility.HtmlDecode(input);
-            throw new NotImplementedException();
         }
 
 

@@ -43,8 +43,6 @@ namespace OdtToMm
 
         private void Cbtn_Click(object sender, EventArgs e)
         {
-            ODTFilePath = @"C:\Users\vojmar\Desktop\Testing File.odt";
-            MMFilePath = "ad";
             if (
                 (ODTFilePath != null) &&
                 (ODTFilePath != "") &&
@@ -52,11 +50,10 @@ namespace OdtToMm
                 (MMFilePath != "")
                )
             {
-                OdtParser odtParser = new OdtParser(ODTFilePath);
-                MMParser mmParser = new MMParser(MMFilePath);
-                var fmnCollection = odtParser.GetOdtContent();
-                MessageBox.Show("");
-                //TODO: Just add some magic
+                FreeMindNodeCollection fmnCollection = OdtParser.ParseOdt(ODTFilePath);
+                MMParser.ParseAndSaveMM(MMFilePath, fmnCollection);
+                MessageBox.Show("STUFF'S DONE");
+                //TODO: Just add some magic - parse and save in separate thread, events, progress bar...
             }
         }
     }
