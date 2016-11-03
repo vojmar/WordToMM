@@ -14,8 +14,6 @@ namespace OdtToMm
     public class FreeMindNode
     {
 
-        static int lastId;
-
         public int id { get; private set; }
         public int parentId { get; private set; }
         public string text { get; private set; }
@@ -23,11 +21,11 @@ namespace OdtToMm
         /// <summary>
         /// Constuctor for FreeMindNode, this constructor creates top node.
         /// </summary>
-        public FreeMindNode()
+        public FreeMindNode(string text)
         {
-            lastId = 0;
-            this.id = lastId;
+            this.id = 0;
             topNode = true;
+            this.text = text;
         }
         
         /// <summary>
@@ -35,10 +33,9 @@ namespace OdtToMm
         /// </summary>
         /// <param name="parentId">ID of parent node.</param>
         /// <param name="text">Text node contains.</param>
-        public FreeMindNode(int parentId, string text)
+        public FreeMindNode(int parentId, string text, int id)
         {
-            lastId++;
-            this.id = lastId;
+            this.id = id;
             this.parentId = parentId;
             this.text = text;
             this.topNode = false;
@@ -130,7 +127,12 @@ namespace OdtToMm
         /// <param name="node">FreeMindNode to be added to FreeMindNodeCollection</param>
         public void Add(FreeMindNode node)
         {
+            var tmp = this.col;
             this.col = new FreeMindNode[col.Length +1];
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                col[i] = tmp[i];
+            }
             col[col.Length-1] = node;
         }
     }
