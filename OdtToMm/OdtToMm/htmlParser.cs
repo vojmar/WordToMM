@@ -16,7 +16,7 @@ namespace OdtToMm
         {
             return HttpUtility.HtmlDecode(input);
             //check for compilatione error
-            bool error = true;
+            bool error = true; // pokud se sem dostane program, někde je chyba...
 
             if (error == true) // still error ?
             {
