@@ -50,14 +50,10 @@ namespace OdtToMm
                 (MMFilePath != "")
                )
             {
-                OdtParser odtParser = new OdtParser(ODTFilePath);
-                FreeMindNodeCollection fmnCollection = odtParser.GetOdtContent();
-                MessageBox.Show("");
-                if(!MMParser.MMParseAndSave(MMFilePath, fmnCollection))
-                {
-                    MessageBox.Show("NOPE");
-                }
-                //TODO: Just add some magic
+                FreeMindNodeCollection fmnCollection = OdtParser.ParseOdt(ODTFilePath);
+                MMParser.ParseAndSaveMM(MMFilePath, fmnCollection);
+                MessageBox.Show("STUFF'S DONE");
+                //TODO: Just add some magic - parse and save in separate thread, events, progress bar...
             }
         }
     }
