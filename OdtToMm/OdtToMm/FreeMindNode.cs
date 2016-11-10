@@ -18,6 +18,7 @@ namespace OdtToMm
         public int parentId { get; private set; }
         public string text { get; private set; }
         public bool topNode { get; private set; }
+        public string Commnet { get; set; } = null;
         /// <summary>
         /// Constuctor for FreeMindNode, this constructor creates top node.
         /// </summary>
