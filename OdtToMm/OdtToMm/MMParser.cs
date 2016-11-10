@@ -7,53 +7,34 @@ using System.Xml.Linq;
 
 namespace OdtToMm
 {
-    static class MMParser
+    class MMParser
     {
+        private string _path;
+
         /// <summary>
-        /// Parses FreeMindNodeCollection and saves it as .mm file (overwrites existing file)
+        /// Provides methods for convertion means
         /// </summary>
-        /// <param name="path">Path to saved file</param>
-        /// <param name="col">FreeMindNodeCollection to parse</param>
-        /// <returns></returns>
-        public static async Task<bool> ParseAndSaveMM(string path, FreeMindNodeCollection col)
+        public MMParser(string path)
         {
-            
-            XDocument ts = await ParseCollection(col);
-            await Task.Run(()=>ts.Save(path));
-            return true;
+            this._path = path;
         }
 
-        //PRIVATE CLASSES FOR CONVERTION MEANS
-        private static async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
+        public XDocument ParseCollection(FreeMindNodeCollection col)
         {
-            return await Task.Run(() =>
-            {
             XDocument parsed = new XDocument();
-            XElement map = new XElement("map");
-            map.SetAttributeValue("version", "1.0.1");
-            parsed.Add(map);
-            foreach (FreeMindNode n in col)
+            foreach(FreeMindNode n in col)
             {
                 if (n.topNode)
                 {
-                    parsed.Descendants("map").Single().Add(ParseNode(n));
+                    parsed.Add(ParseNode(n));
                 }
                 else
                 {
-                        XElement p;
-                        try
-                        {
-                            p = parsed
+                    XElement p = parsed
                         .Descendants("node")
                         .Where(g => g.Attribute("ID").Value == n.parentId.ToString())
                         .Single();
-                        }
-                        catch (Exception e)
-                        {
-                            //if exception is invalid system operation
-                            p = map;
-                        }
-                        if (p != null)
+                    if(p != null)
                     {
                         p.Add(ParseNode(n));
                     }
@@ -64,17 +45,26 @@ namespace OdtToMm
                 }
             }
             return parsed;
-            });
         }
 
-        private static XElement ParseNode(FreeMindNode f)
+        //PRIVATE CLASSES FOR CONVERTION MEANS
+
+        private XElement ParseNode(FreeMindNode f)
         {
             XElement n;
+            if (f.topNode)
+            {
+                n = new XElement("map");
+                n.SetAttributeValue("version", "1.0.1");
+            }
+            else
+            {
                 string tt = htmlParser.htmlParse(f.text);
                 n = new XElement("node");
                 n.SetAttributeValue("TEXT", tt);
                 n.SetAttributeValue("ID", f.id);
 
+            }
             return n;
         }
 

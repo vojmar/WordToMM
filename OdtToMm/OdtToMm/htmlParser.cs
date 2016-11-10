@@ -8,18 +8,25 @@ using System.Web;
 namespace OdtToMm
 {
     public static class htmlParser
-    {
+    {   
         /// <summary>
-        /// Parses HTML Entities in string into readable characters
+        /// hoď tam entitu a možná to vyhodí znak
         /// </summary>
         public static string htmlParse(string input)
         {
-            //NOTHING CAN GO WRONG!!!
-
-            //SRSLY
             return HttpUtility.HtmlDecode(input);
+            //check for compilatione error
+            bool error = true; // pokud se sem dostane program, někde je chyba...
+
+            if (error == true) // still error ?
+            {
+                error = false;
+            }
+
+            if (error == true) // and now ?
+            {
+                error = false;
+            }
         }
-
-
     }
 }
