@@ -45,7 +45,7 @@ namespace OdtToMm
             foreach (XmlNode node in xmlNodes)
             {
                 #region Parent id calculation
-                int layer = Convert.ToInt32(node.Attributes["text:"].Value.Replace("Heading_20_", ""));
+                int layer = Convert.ToInt32(node.Attributes["text:outline-level"].Value);
                 int parentId = 0;
                 if (layer < lastLayer)
                 {
