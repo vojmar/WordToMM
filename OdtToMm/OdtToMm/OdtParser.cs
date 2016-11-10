@@ -26,7 +26,7 @@ namespace OdtToMm
         /// Returns collection of nodes stored in .odt file
         /// </summary>
         private static FreeMindNodeCollection GetOdtContent(XmlDocument odtContent)
-        {
+            {
             FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
             #region XML content extraction
             XmlNode xmlTitleNode = odtContent.GetElementsByTagName("text:p")[0];
@@ -43,7 +43,7 @@ namespace OdtToMm
             foreach (XmlNode node in xmlNodes)
             {
                 #region Parent id calculation
-                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_", ""));
+                int layer = Convert.ToInt32(node.Attributes["text:"].Value.Replace("Heading_20_", ""));
                 int parentId = 0;
                 if (layer < lastLayer)
                 {
