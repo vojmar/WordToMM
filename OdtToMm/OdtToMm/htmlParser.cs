@@ -10,21 +10,7 @@ namespace OdtToMm
     {
         public static string htmlParse(string input)
         {
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-            throw new NotImplementedException();
+            return input;
         }
 
 

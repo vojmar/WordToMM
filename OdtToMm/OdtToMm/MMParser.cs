@@ -7,55 +7,69 @@ using System.Xml.Linq;
 
 namespace OdtToMm
 {
-    class MMParser
+    static class MMParser
     {
-        private string _path;
 
         /// <summary>
         /// Provides methods for convertion means
         /// </summary>
-        public MMParser(string path)
+        
+        /// <summary>
+        /// Parses collection into XDocument
+        /// </summary>
+        /// <param name="col">FreeMindNideCollection to parse</param>
+        /// <returns>Parsed XDocument</returns>
+        private static async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
         {
-            this._path = path;
-        }
-
-        public XDocument ParseCollection(FreeMindNodeCollection col)
-        {
-            XDocument parsed = new XDocument();
-            foreach(FreeMindNode n in col)
+            return await Task.Run(() =>
             {
-                if (n.topNode)
+                XDocument parsed = new XDocument();
+                XElement map = new XElement("map");
+
+                foreach (FreeMindNode n in col)
                 {
-                    parsed.Add(ParseNode(n));
-                }
-                else
-                {
-                    XElement p = parsed
-                        .Descendants("node")
-                        .Where(g => g.Attribute("ID").Value == n.parentId.ToString())
-                        .Single();
-                    if(p != null)
+                    if (n.topNode)
                     {
-                        p.Add(ParseNode(n));
+                        parsed.Add(ParseNode(n));
                     }
                     else
                     {
-                        throw new Exception("Error parsing XElement in MMParser.ParseCollection()");
+                        XElement p;
+                        try
+                        {
+                            p = parsed
+                                .Descendants("node")
+                                .Where(g => g.Attribute("ID").Value == n.parentId.ToString())
+                                .Single();
+                        }
+                        catch (Exception e)
+                        {
+                            //if exception is invalid system operation
+                            p = map;
+                        }
+                        if (p != null)
+                        {
+                            p.Add(ParseNode(n));
+                        }
+                        else
+                        {
+                            throw new Exception("Error parsing XElement in MMParser.ParseCollection()");
+                        }
                     }
                 }
-            }
-            return parsed;
+                return parsed;
+            });
         }
 
         //PRIVATE CLASSES FOR CONVERTION MEANS
 
-        private XElement ParseNode(FreeMindNode f)
+        private static XElement ParseNode(FreeMindNode f)
         {
             XElement n;
             if (f.topNode)
             {
-                n = new XElement("map");
-                n.SetAttributeValue("version", "1.0.1");
+                n = new XElement("node");
+                n.SetAttributeValue("ID", 0);
             }
             else
             {
@@ -68,6 +82,19 @@ namespace OdtToMm
             return n;
         }
 
+        public static bool MMParseAndSave(string path, FreeMindNodeCollection col)
+        {
+ //           try
+ //           {
+                XDocument parsed = ParseCollection(col);
+                parsed.Save(path);
+ //           }
+ //           catch(Exception exc)
+ //           {
+ //               return false;
+ //           }
+            return true;
+        }
 
     }
 }

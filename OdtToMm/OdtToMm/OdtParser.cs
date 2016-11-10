@@ -26,61 +26,64 @@ namespace OdtToMm
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
-        public FreeMindNodeCollection GetOdtContent()
+        public async Task<FreeMindNodeCollection> GetOdtContent()
         {
-            ExtractOdt();
-            LoadOdt();
-            FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
-            #region XML Extraction
-            XmlNode xmlTitleNode = odtContent.GetElementsByTagName("text:p")[0];
-            FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
-            nodeCol.Add(titleNode);
-            XmlNodeList xmlNodes = odtContent.GetElementsByTagName("text:h");
-            #endregion XML Extraction
-            #region Cycle var's declaration
-            Stack<int> tree = new Stack<int>();
-            int currentId = 1;
-            int lastLayer = 0;
-            tree.Push(0);
-            #endregion Cycle declaration
-            foreach (XmlNode node in xmlNodes)
+            return await Task.Run(() =>
             {
-                #region Parent id calculation
-                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_", ""));
-                int parentId = 0;
-                if (layer < lastLayer)
+                ExtractOdt();
+                LoadOdt();
+                FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
+                #region XML Extraction
+                XmlNode xmlTitleNode = odtContent.GetElementsByTagName("text:p")[0];
+                FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
+                nodeCol.Add(titleNode);
+                XmlNodeList xmlNodes = odtContent.GetElementsByTagName("text:h");
+                #endregion XML Extraction
+                #region Cycle var's declaration
+                Stack<int> tree = new Stack<int>();
+                int currentId = 1;
+                int lastLayer = 0;
+                tree.Push(0);
+                #endregion Cycle declaration
+                foreach (XmlNode node in xmlNodes)
                 {
-                    int difference = lastLayer - layer;
-                    for (int i = 0; i < difference; i++)
+                    #region Parent id calculation
+                    int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_", ""));
+                    int parentId = 0;
+                    if (layer < lastLayer)
+                    {
+                        int difference = lastLayer - layer;
+                        for (int i = 0; i < difference; i++)
+                        {
+                            tree.Pop();
+                        }
+
+                        tree.Pop();
+                        parentId = tree.Peek();
+                        tree.Push(currentId);
+                        lastLayer = layer;
+                    }
+                    else if (layer > lastLayer)
+                    {
+                        int difference = layer - lastLayer;
+                        parentId = tree.Peek();
+                        tree.Push(currentId);
+                        lastLayer = layer;
+                    }
+                    else if (layer == lastLayer)
                     {
                         tree.Pop();
+                        parentId = tree.Peek();
+                        tree.Push(currentId);
+                        lastLayer = layer;
                     }
-                    
-                    tree.Pop();
-                    parentId = tree.Peek();
-                    tree.Push(currentId);
-                    lastLayer = layer;
+                    #endregion Parent id calculation
+                    nodeCol.Add(new FreeMindNode(parentId, node.InnerText, currentId));
+                    currentId++;
                 }
-                else if (layer > lastLayer)
-                {
-                    int difference = layer - lastLayer;
-                    parentId = tree.Peek();
-                    tree.Push(currentId);
-                    lastLayer = layer;
-                }
-                else if (layer == lastLayer)
-                {
-                    tree.Pop();
-                    parentId = tree.Peek();
-                    tree.Push(currentId);
-                    lastLayer = layer;
-                }
-                #endregion Parent id calculation
-                nodeCol.Add(new FreeMindNode(parentId, node.InnerText, currentId));
-                currentId++;
-            }
-            DeleteOdtFiles();
-            return nodeCol;
+                DeleteOdtFiles();
+                return nodeCol;
+            });
         }
         private void ExtractOdt()
         {
