@@ -19,7 +19,7 @@ namespace OdtToMm
         private string MMFilePath;
         
         //DELEGATES FOR THREAD-SAFE OPERATIONS
-        delegate void PB1AddCallback(int num);
+        delegate void Form1Callback<T>(T args);
 
 
         public Form1()
@@ -39,23 +39,20 @@ namespace OdtToMm
         {
             int remaining = progressBar1.Maximum - progressBar1.Value;
             int add = remaining * e.CurrentCount / e.NodeCount;
-            if (add + progressBar1.Value <= progressBar1.Maximum)
+            if (add + progressBar1.Value > progressBar1.Maximum)
             {
-                if (progressBar1.InvokeRequired)
-                {
-                    PB1AddCallback d = new PB1AddCallback((num) =>
-                    {
-                        progressBar1.Value += num;
-                    });
-                    this.Invoke(d, new object[] { add });                }
-                else
-                {
-                    progressBar1.Value += add;
-                }
+                add = progressBar1.Maximum - progressBar1.Value;
             }
-            else
+            if (progressBar1.InvokeRequired) //THREAD SAFE CALLS TO WINDOWS FORMS CONTROLS -> Create a delegate and invoke from Form1
             {
-                progressBar1.Value = progressBar1.Maximum;
+                Form1Callback<int> addDel = new Form1Callback<int>((num) =>
+                {
+                    progressBar1.Value += num;
+                });
+                this.Invoke(addDel, new object[] { add });                }
+            else //IF IT IS SAFE TO CALL (should never happen, but who knows)
+            {
+                progressBar1.Value += add;
             }
         }
 

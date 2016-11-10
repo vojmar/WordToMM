@@ -35,6 +35,7 @@ namespace OdtToMm
 
             return await Task.Run(() =>
         {
+            MMParseStart(); //EVENT CALL
             XDocument parsed = new XDocument();
             XElement map = new XElement("map");
             map.SetAttributeValue("version", "1.0.1");
@@ -43,7 +44,7 @@ namespace OdtToMm
             foreach (FreeMindNode n in col)
             {
 
-                NodeParseStep(x, col.Count);
+                NodeParseStep(x, col.Count); //EVENT CALL
                 x++;
                 if (n.topNode)
                 {

@@ -12,9 +12,13 @@ namespace OdtToMm
         //EVENT DELEGATES
         public event EventHandler<NodeParseStepEventArgs> OnNodeParseStep = delegate { };
 
+        public event EventHandler OnMMParseStart = delegate { };
+
 
         //EVENT CALLERS
         internal void NodeParseStep(int CurrentCount, int NodeCount) => OnEvent(OnNodeParseStep, new NodeParseStepEventArgs(CurrentCount, NodeCount));
+
+        internal void MMParseStart() => OnEvent(OnMMParseStart);
 
         //MAIN CALLER
         private void OnEvent(EventHandler handler)
