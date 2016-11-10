@@ -43,8 +43,6 @@ namespace OdtToMm
 
         private async void Cbtn_Click(object sender, EventArgs e)
         {
-            ODTFilePath = @"C:\Users\vojmar\Desktop\Testing File.odt";
-            MMFilePath = "ad";
             if (
                 (ODTFilePath != null) &&
                 (ODTFilePath != "") &&
