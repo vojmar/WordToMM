@@ -1,0 +1,9 @@
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\bin\Debug\OdtToMm.exe.config
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\bin\Debug\OdtToMm.exe
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\bin\Debug\OdtToMm.pdb
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.csprojResolveAssemblyReference.cache
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.Form1.resources
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.Properties.Resources.resources
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.csproj.GenerateResource.Cache
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.exe
+C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.pdb

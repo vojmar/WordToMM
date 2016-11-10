@@ -7,6 +7,7 @@ using System.Threading.Tasks;
 using System.IO;
 using System.IO.Compression;
 using System.Xml.Linq;
+using System.Collections;
 
 namespace OdtToMm
 {
@@ -77,9 +78,15 @@ namespace OdtToMm
                    }
                    #endregion Parent id calculation
                    var nod = new FreeMindNode(parentId, node.InnerText, currentId);
-                   if (node.NextSibling.Name == "text:p")
+                   XmlNode sibling = node.NextSibling;
+                   while (sibling != null && sibling.Name == "text:p")
                    {
-                       nod.Commnet = node.NextSibling.InnerText;
+                       if(nod.Comment == null)
+                       {
+                           nod.Comment = new CommentCollection();
+                       }
+                       nod.Comment.Add(new Comment(sibling.InnerText, "p"));
+                       sibling = sibling.NextSibling;
                    }
                    nodeCol.Add(nod);
                    

@@ -71,9 +71,27 @@ namespace OdtToMm
         {
             XElement n;
                 string tt = htmlParser.htmlParse(f.text);
-                n = new XElement("node");
-                n.SetAttributeValue("TEXT", tt);
-                n.SetAttributeValue("ID", f.id);
+            n = new XElement("node");
+            n.SetAttributeValue("ID", f.id);
+            n.SetAttributeValue("TEXT", tt);
+            if(f.Comment != null)
+            {
+                XElement richcontent = new XElement("richcontent");
+                richcontent.SetAttributeValue("TYPE", "NOTE");
+                XElement html = new XElement("html");
+                XElement head = new XElement("head");
+                XElement body = new XElement("body");
+                foreach(Comment c in f.Comment)
+                {
+                    XElement p = new XElement(c.tag);
+                    p.Value = c.text;
+                    body.Add(p);
+                }
+                html.Add(head);
+                html.Add(body);
+                richcontent.Add(html);
+                n.Add(richcontent);
+            }
 
             return n;
         }

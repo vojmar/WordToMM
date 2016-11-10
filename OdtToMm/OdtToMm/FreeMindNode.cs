@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -18,7 +17,7 @@ namespace OdtToMm
         public int parentId { get; private set; }
         public string text { get; private set; }
         public bool topNode { get; private set; }
-        public string Commnet { get; set; } = null;
+        public CommentCollection Comment { get; set; }
         /// <summary>
         /// Constuctor for FreeMindNode, this constructor creates top node.
         /// </summary>
@@ -161,6 +160,116 @@ namespace OdtToMm
         {
             index++;
             return (index < col.Length) ? true : false;
+        }
+
+        public void Reset()
+        {
+            index = -1;
+        }
+    }
+
+    public class Comment
+    {
+        public string text { get; private set; }
+        public string tag { get; private set; }
+
+        public Comment(string text, string tag)
+        {
+            this.text = text;
+            this.tag = tag;
+        }
+    }
+
+    public class CommentCollection : ICollection
+    {
+        private object syncRoot;
+
+        private Comment[] carray;
+
+        public CommentCollection(Comment[] carray)
+        {
+            this.carray = carray;
+        }
+
+        public CommentCollection()
+        {
+            this.carray = new Comment[0];
+        }
+
+        public void Add(Comment c)
+        {
+            var tmp = this.carray;
+            this.carray = new Comment[carray.Length + 1];
+            for (int i = 0; i < tmp.Length; i++)
+            {
+                carray[i] = tmp[i];
+            }
+            carray[carray.Length - 1] = c;
+        }
+
+        public int Count
+        {
+            get
+            {
+                return carray.Length;
+            }
+        }
+
+        public bool IsSynchronized
+        {
+            get
+            {
+                return (this.syncRoot != null) ? true : false;
+            }
+        }
+
+        public object SyncRoot
+        {
+            get
+            {
+                return syncRoot;
+            }
+        }
+
+        public void CopyTo(Array array, int index)
+        {
+            throw new NotImplementedException();
+        }
+
+        IEnumerator IEnumerable.GetEnumerator()
+        {
+            return (IEnumerator)GetEnumerator();
+        }
+
+        public CommentCollectionEnum GetEnumerator()
+        {
+            return new CommentCollectionEnum(carray);
+        }
+    }
+
+
+    public class CommentCollectionEnum : IEnumerator
+    {
+        Comment[] carray;
+        int index = -1;
+
+        public CommentCollectionEnum(Comment[] carray)
+        {
+            this.carray = carray;
+        }
+
+        public object Current
+        {
+            get
+            {
+                return carray[index];
+            }
+        }
+
+        public bool MoveNext()
+        {
+            index++;
+            return (index < carray.Length) ? true : false;
         }
 
         public void Reset()
