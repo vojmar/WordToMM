@@ -14,13 +14,21 @@ namespace OdtToMm
         /// <summary>
         /// Provides methods for convertion means
         /// </summary>
-        public MMParser(string path)
+        /// <param name="path">Path to saved file</param>
+        /// <param name="col">FreeMindNodeCollection to parse</param>
+        /// <returns></returns>
+        public static bool ParseAndSaveMM(string path, FreeMindNodeCollection col)
         {
-            this._path = path;
+            XDocument ts = ParseCollection(col);
+            ts.Save(path);
+            return true;
         }
 
-        public XDocument ParseCollection(FreeMindNodeCollection col)
+        //PRIVATE CLASSES FOR CONVERTION MEANS
+        private static XDocument ParseCollection(FreeMindNodeCollection col)
         {
+            return await Task.Run(() =>
+            {
             XDocument parsed = new XDocument();
             foreach(FreeMindNode n in col)
             {
@@ -76,7 +84,7 @@ namespace OdtToMm
                 await Task.Run(() => parsed.Save(path));
             }
             catch(Exception exc)
-            {
+        {
                 return false;
             }
             return true;
