@@ -15,15 +15,16 @@ namespace OdtToMm
         /// <param name="path">Path to saved file</param>
         /// <param name="col">FreeMindNodeCollection to parse</param>
         /// <returns></returns>
-        public static bool ParseAndSaveMM(string path, FreeMindNodeCollection col)
+        public static async Task<bool> ParseAndSaveMM(string path, FreeMindNodeCollection col)
         {
-            XDocument ts = ParseCollection(col);
-            ts.Save(path);
+            
+            XDocument ts = await ParseCollection(col);
+            await Task.Run(()=>ts.Save(path));
             return true;
         }
 
         //PRIVATE CLASSES FOR CONVERTION MEANS
-        private static XDocument ParseCollection(FreeMindNodeCollection col)
+        private static async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
         {
             return await Task.Run(() =>
             {

@@ -16,17 +16,19 @@ namespace OdtToMm
         private const string tmpPath = "temp";
         #endregion var's declaration
         /// <param name="odtFilePath">Full path to .odt file</param>
-        public static FreeMindNodeCollection ParseOdt(string odtFilePath)
+        public static async Task<FreeMindNodeCollection> ParseOdt(string odtFilePath)
         {
             ExtractOdt(odtFilePath);
-            var odtContent = LoadOdt();
-            return GetOdtContent(odtContent);
+            var odtContent = await Task.Run(() => { return LoadOdt(); });
+            return await GetOdtContent(odtContent);
         }
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
-        private static FreeMindNodeCollection GetOdtContent(XmlDocument odtContent)
+        private static async Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
         {
+            return await Task.Run(() =>
+            {
             FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
             #region XML content extraction
             XmlNode xmlTitleNode = odtContent.GetElementsByTagName("text:p")[0];
@@ -43,7 +45,7 @@ namespace OdtToMm
             foreach (XmlNode node in xmlNodes)
             {
                 #region Parent id calculation
-                int layer = Convert.ToInt32(node.Attributes["text:style-name"].Value.Replace("Heading_20_", ""));
+                int layer = Convert.ToInt32(node.Attributes["text:"].Value.Replace("Heading_20_", ""));
                 int parentId = 0;
                 if (layer < lastLayer)
                 {
