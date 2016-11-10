@@ -27,19 +27,19 @@ namespace OdtToMm
         private static async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
         {
             return await Task.Run(() =>
-            {
-                XDocument parsed = new XDocument();
+        {
+            XDocument parsed = new XDocument();
                 XElement map = new XElement("map");
                 map.SetAttributeValue("version", "1.0.1");
                 parsed.Add(map);
                 foreach (FreeMindNode n in col)
+            {
+                if (n.topNode)
                 {
-                    if (n.topNode)
-                    {
                         parsed.Descendants("map").Single().Add(ParseNode(n));
-                    }
-                    else
-                    {
+                }
+                else
+                {
                         XElement p;
                         try
                         {
@@ -49,46 +49,46 @@ namespace OdtToMm
                         .Single();
                         }
                         catch (Exception e)
-                        {
+                    {
                             //if exception is invalid system operation
                             p = map;
                         }
                         if (p != null)
                         {
-                            p.Add(ParseNode(n));
-                        }
-                        else
-                        {
-                            throw new Exception("Error parsing XElement in MMParser.ParseCollection()");
-                        }
+                        p.Add(ParseNode(n));
+                    }
+                    else
+                    {
+                        throw new Exception("Error parsing XElement in MMParser.ParseCollection()");
                     }
                 }
-                return parsed;
+            }
+            return parsed;
             });
         }
 
         private static XElement ParseNode(FreeMindNode f)
         {
             XElement n;
-            string tt = htmlParser.htmlParse(f.text);
-            n = new XElement("node");
-            n.SetAttributeValue("TEXT", tt);
-            n.SetAttributeValue("ID", f.id);
+                string tt = htmlParser.htmlParse(f.text);
+                n = new XElement("node");
+                n.SetAttributeValue("TEXT", tt);
+                n.SetAttributeValue("ID", f.id);
 
             return n;
         }
 
         public static async Task<bool> MMParseAndSave(string path, FreeMindNodeCollection col)
         {
-                try
-           {
+            try
+            {
                 XDocument parsed = await ParseCollection(col);
                 parsed.Save(path);
-           }
+            }
             catch(Exception exc)
             {
                 return false;
-           }
+            }
             return true;
         }
 
