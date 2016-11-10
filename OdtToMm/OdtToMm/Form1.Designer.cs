@@ -74,7 +74,7 @@
             // 
             this.ODTtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.ODTtb.Location = new System.Drawing.Point(130, 0);
+            this.ODTtb.Location = new System.Drawing.Point(133, 2);
             this.ODTtb.Name = "ODTtb";
             this.ODTtb.ReadOnly = true;
             this.ODTtb.Size = new System.Drawing.Size(374, 20);
@@ -84,7 +84,7 @@
             // 
             this.MMtb.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.MMtb.Location = new System.Drawing.Point(130, 31);
+            this.MMtb.Location = new System.Drawing.Point(133, 31);
             this.MMtb.Name = "MMtb";
             this.MMtb.ReadOnly = true;
             this.MMtb.Size = new System.Drawing.Size(374, 20);
@@ -93,9 +93,12 @@
             // progressBar1
             // 
             this.progressBar1.Location = new System.Drawing.Point(12, 158);
+            this.progressBar1.Maximum = 10000;
+            this.progressBar1.Minimum = 1;
             this.progressBar1.Name = "progressBar1";
             this.progressBar1.Size = new System.Drawing.Size(112, 13);
             this.progressBar1.TabIndex = 5;
+            this.progressBar1.Value = 1;
             // 
             // label1
             // 

@@ -7,15 +7,21 @@ using System.Xml.Linq;
 
 namespace OdtToMm
 {
-    static class MMParser
+    partial class MMParser
     {
+
+        public MMParser()
+        {
+
+        }
+
         /// <summary>
         /// Parses FreeMindNodeCollection and saves it as .mm file (overwrites existing file)
         /// </summary>
         /// <param name="path">Path to saved file</param>
         /// <param name="col">FreeMindNodeCollection to parse</param>
         /// <returns></returns>
-        public static async Task<bool> ParseAndSaveMM(string path, FreeMindNodeCollection col)
+        public async Task<bool> ParseAndSaveMM(string path, FreeMindNodeCollection col)
         {
 
             XDocument ts = await ParseCollection(col);
@@ -24,16 +30,21 @@ namespace OdtToMm
         }
 
         //PRIVATE CLASSES FOR CONVERTION MEANS
-        private static async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
+        private async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
         {
+
             return await Task.Run(() =>
         {
             XDocument parsed = new XDocument();
-                XElement map = new XElement("map");
-                map.SetAttributeValue("version", "1.0.1");
-                parsed.Add(map);
-                foreach (FreeMindNode n in col)
+            XElement map = new XElement("map");
+            map.SetAttributeValue("version", "1.0.1");
+            parsed.Add(map);
+            int x = 1;
+            foreach (FreeMindNode n in col)
             {
+
+                NodeParseStep(x, col.Count);
+                x++;
                 if (n.topNode)
                 {
                         parsed.Descendants("map").Single().Add(ParseNode(n));
@@ -67,10 +78,10 @@ namespace OdtToMm
             });
         }
 
-        private static XElement ParseNode(FreeMindNode f)
+        private XElement ParseNode(FreeMindNode f)
         {
             XElement n;
-                string tt = htmlParser.htmlParse(f.text);
+            string tt = htmlParser.htmlParse(f.text);
             n = new XElement("node");
             n.SetAttributeValue("ID", f.id);
             n.SetAttributeValue("TEXT", tt);
@@ -96,7 +107,7 @@ namespace OdtToMm
             return n;
         }
 
-        public static async Task<bool> MMParseAndSave(string path, FreeMindNodeCollection col)
+        public async Task<bool> MMParseAndSave(string path, FreeMindNodeCollection col)
         {
             try
             {
