@@ -20,8 +20,8 @@ namespace OdtToMm
         {
             InitializeComponent();
             ODTofd = new OpenFileDialog();
-            ODTofd.Filter = "Odt files |*.odt|" +
-                "Word files |*.doc;*.docx"+
+            ODTofd.Filter = "Odt files |*.odt|"+
+                "Word files |*.doc;*.docx|" +
                 "All files (*.*)|*.*";
             ODTofd.Multiselect = false;
             MMsfd = new SaveFileDialog();
