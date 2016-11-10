@@ -41,7 +41,7 @@ namespace OdtToMm
             }
         }
 
-        private void Cbtn_Click(object sender, EventArgs e)
+        private async void Cbtn_Click(object sender, EventArgs e)
         {
             if (
                 (ODTFilePath != null) &&
@@ -50,8 +50,8 @@ namespace OdtToMm
                 (MMFilePath != "")
                )
             {
-                FreeMindNodeCollection fmnCollection = OdtParser.ParseOdt(ODTFilePath);
-                MMParser.ParseAndSaveMM(MMFilePath, fmnCollection);
+                FreeMindNodeCollection fmnCollection = await OdtParser.ParseOdt(ODTFilePath);
+                await MMParser.ParseAndSaveMM(MMFilePath, fmnCollection);
                 MessageBox.Show("STUFF'S DONE");
                 //TODO: Just add some magic - parse and save in separate thread, events, progress bar...
             }

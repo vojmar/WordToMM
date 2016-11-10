@@ -78,17 +78,17 @@ namespace OdtToMm
             return n;
         }
 
-        public static bool MMParseAndSave(string path, FreeMindNodeCollection col)
+        public static async Task<bool> MMParseAndSave(string path, FreeMindNodeCollection col)
         {
- //           try
- //           {
-                XDocument parsed = ParseCollection(col);
-                parsed.Save(path);
- //           }
- //           catch(Exception exc)
- //           {
- //               return false;
- //           }
+            try
+            {
+                XDocument parsed = await ParseCollection(col);
+                await Task.Run(() => parsed.Save(path));
+            }
+            catch(Exception exc)
+            {
+                return false;
+            }
             return true;
         }
 
