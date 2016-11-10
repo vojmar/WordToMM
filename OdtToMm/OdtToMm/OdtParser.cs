@@ -75,8 +75,14 @@ namespace OdtToMm
                        tree.Push(currentId);
                        lastLayer = layer;
                    }
-                    #endregion Parent id calculation
-                    nodeCol.Add(new FreeMindNode(parentId, node.InnerText, currentId));
+                   #endregion Parent id calculation
+                   var nod = new FreeMindNode(parentId, node.InnerText, currentId);
+                   if (node.NextSibling.Name == "text:p")
+                   {
+                       nod.Commnet = node.NextSibling.InnerText;
+                   }
+                   nodeCol.Add(nod);
+                   
                    currentId++;
                }
                DeleteOdtFiles();
