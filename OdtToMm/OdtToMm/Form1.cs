@@ -33,6 +33,41 @@ namespace OdtToMm
             MMsfd = new SaveFileDialog();
             mmparser = new MMParser();
             mmparser.OnNodeParseStep += Mmparser_OnNodeParseStep;
+            mmparser.OnMMParseStarted += Mmparser_OnMMParseStarted;
+            mmparser.OnMMParseEnded += Mmparser_OnMMParseEnded;
+        }
+
+        private void Mmparser_OnMMParseEnded(object sender, MMParseEndedEventArgs e)
+        {
+            string outputText = (e.successful) ? "Done! Ready for input!" : "Error creating MM File!";
+            if (label1.InvokeRequired)
+            {
+                Form1Callback<string> editText = new Form1Callback<string>((text) =>
+                {
+                    label1.Text = text;
+                });
+                this.Invoke(editText, new object[] { outputText });
+            }
+            else
+            {
+                label1.Text = outputText;
+            }
+        }
+
+        private void Mmparser_OnMMParseStarted(object sender, EventArgs e)
+        {
+            if(label1.InvokeRequired)
+            {
+                Form1Callback<string> editText = new Form1Callback<string>((text)=>
+                {
+                    label1.Text = text;
+                });
+                this.Invoke(editText, new object[] { "Creating MM File" });
+            }
+            else
+            {
+                label1.Text = "Creating MM File";
+            }
         }
 
         private void Mmparser_OnNodeParseStep(object sender, NodeParseStepEventArgs e)
@@ -87,8 +122,6 @@ namespace OdtToMm
             {
                 FreeMindNodeCollection fmnCollection = await OdtParser.ParseOdt(ODTFilePath);
                 await mmparser.ParseAndSaveMM(MMFilePath, fmnCollection);
-                MessageBox.Show("STUFF'S DONE");
-                //TODO: Just add some magic - parse and save in separate thread, events, progress bar...
             }
         }
     }

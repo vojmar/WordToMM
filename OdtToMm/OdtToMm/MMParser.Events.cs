@@ -12,13 +12,19 @@ namespace OdtToMm
         //EVENT DELEGATES
         public event EventHandler<NodeParseStepEventArgs> OnNodeParseStep = delegate { };
 
-        public event EventHandler OnMMParseStart = delegate { };
+        public event EventHandler OnMMParseStarted = delegate { };
+
+        public event EventHandler<MMParseEndedEventArgs> OnMMParseEnded = delegate { };
 
 
         //EVENT CALLERS
         internal void NodeParseStep(int CurrentCount, int NodeCount) => OnEvent(OnNodeParseStep, new NodeParseStepEventArgs(CurrentCount, NodeCount));
 
-        internal void MMParseStart() => OnEvent(OnMMParseStart);
+        internal void MMParseStart() => OnEvent(OnMMParseStarted);
+
+        internal void MMParseEnded(bool success) => OnEvent(OnMMParseEnded, new MMParseEndedEventArgs(success));
+
+        
 
         //MAIN CALLER
         private void OnEvent(EventHandler handler)
@@ -32,7 +38,9 @@ namespace OdtToMm
         }
     }
 
-
+    /// <summary>
+    /// NodeParseStepEventArgs
+    /// </summary>
     public class NodeParseStepEventArgs : EventArgs
     {
         public int CurrentCount { get; private set; }
@@ -42,6 +50,18 @@ namespace OdtToMm
         {
             this.CurrentCount = CurrentCount;
             this.NodeCount = NodeCount;
+        }
+    }
+    /// <summary>
+    /// MMParseEndedEventArgs
+    /// </summary>
+    public class MMParseEndedEventArgs : EventArgs
+    {
+        public bool successful { get; private set; }
+
+        public MMParseEndedEventArgs(bool successful)
+        {
+            this.successful = successful;
         }
     }
 }

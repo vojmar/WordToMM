@@ -52,29 +52,27 @@ namespace OdtToMm
                 }
                 else
                 {
-                        XElement p;
-                        try
-                        {
-                            p = parsed
+                    XElement p;
+                    try
+                    {
+                        p = parsed
                         .Descendants("node")
                         .Where(g => g.Attribute("ID").Value == n.parentId.ToString())
                         .Single();
-                        }
-                        catch (Exception e)
-                    {
-                            //if exception is invalid system operation
-                            p = map;
-                        }
-                        if (p != null)
-                        {
-                        p.Add(ParseNode(n));
                     }
-                    else
+                    catch (Exception e)
                     {
+                        MMParseEnded(false);
                         throw new Exception("Error parsing XElement in MMParser.ParseCollection()");
+                        
                     }
+                    if (p != null)
+                    {
+                        p.Add(ParseNode(n));
+                    } 
                 }
             }
+            MMParseEnded(true);
             return parsed;
             });
         }
