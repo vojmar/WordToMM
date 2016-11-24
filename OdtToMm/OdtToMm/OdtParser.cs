@@ -31,18 +31,18 @@ namespace OdtToMm
                 DeleteOdtFiles();
                 throw e;
             }
-            
+
         }
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
         private static Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
-            {
+        {
             return Task.Run(() =>
            {
                FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
-                #region XML content extraction
-                XmlNodeList pNodes = odtContent.GetElementsByTagName("text:p");
+               #region XML content extraction
+               XmlNodeList pNodes = odtContent.GetElementsByTagName("text:p");
                XmlNode xmlTitleNode = pNodes[0];
                FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
                nodeCol.Add(titleNode);
@@ -51,11 +51,11 @@ namespace OdtToMm
                int currentId = 1;
                foreach (XmlNode node in xmlNodes)
                {
-                   FreeMindNode nod = ParseXmlNode(node,currentId);
+                   FreeMindNode nod = ParseXmlNode(node, currentId);
                    XmlNode sibling = node.NextSibling;
                    while (sibling != null && sibling.Name == "text:p")
                    {
-                       if(nod.Comment == null)
+                       if (nod.Comment == null)
                        {
                            nod.Comment = new CommentCollection();
                        }
@@ -69,7 +69,7 @@ namespace OdtToMm
                return nodeCol;
            });
         }
-        private static FreeMindNode ParseXmlNode(XmlNode xmlNode,int currentId)
+        private static FreeMindNode ParseXmlNode(XmlNode xmlNode, int currentId)
         {
 
             #region Cycle var's declaration
