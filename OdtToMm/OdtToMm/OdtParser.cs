@@ -20,8 +20,18 @@ namespace OdtToMm
         public static async Task<FreeMindNodeCollection> ParseOdt(string odtFilePath)
         {
             ExtractOdt(odtFilePath);
-            var odtContent = await Task.Run(()=>LoadOdt());
-            return await GetOdtContent(odtContent);
+            try
+            {
+                var odtContent = await Task.Run(() => LoadOdt());
+                return await GetOdtContent(odtContent);
+                DeleteOdtFiles();
+            }
+            catch (Exception e)
+            {
+                DeleteOdtFiles();
+                throw e;
+            }
+            
         }
         /// <summary>
         /// Returns collection of nodes stored in .odt file
