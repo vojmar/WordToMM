@@ -47,47 +47,11 @@ namespace OdtToMm
                FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
                nodeCol.Add(titleNode);
                XmlNodeList xmlNodes = odtContent.GetElementsByTagName("text:h");
-                #endregion XML Extraction
-                #region Cycle var's declaration
-                Stack<int> tree = new Stack<int>();
+               #endregion XML Extraction
                int currentId = 1;
-               int lastLayer = 0;
-               tree.Push(0);
-                #endregion Cycle declaration
-                foreach (XmlNode node in xmlNodes)
+               foreach (XmlNode node in xmlNodes)
                {
-                    #region Parent id calculation
-                    int layer = Convert.ToInt32(node.Attributes["text:outline-level"].Value);
-                   int parentId = 0;
-                   if (layer < lastLayer)
-                   {
-                       int difference = lastLayer - layer;
-                       for (int i = 0; i < difference; i++)
-                       {
-                           tree.Pop();
-                       }
-
-                       tree.Pop();
-                       parentId = tree.Peek();
-                       tree.Push(currentId);
-                       lastLayer = layer;
-                   }
-                   else if (layer > lastLayer)
-                   {
-                       int difference = layer - lastLayer;
-                       parentId = tree.Peek();
-                       tree.Push(currentId);
-                       lastLayer = layer;
-                   }
-                   else if (layer == lastLayer)
-                   {
-                       tree.Pop();
-                       parentId = tree.Peek();
-                       tree.Push(currentId);
-                       lastLayer = layer;
-                   }
-                   #endregion Parent id calculation
-                   var nod = new FreeMindNode(parentId, node.InnerText, currentId);
+                   FreeMindNode nod = ParseXmlNode(node,currentId);
                    XmlNode sibling = node.NextSibling;
                    while (sibling != null && sibling.Name == "text:p")
                    {
@@ -99,12 +63,52 @@ namespace OdtToMm
                        sibling = sibling.NextSibling;
                    }
                    nodeCol.Add(nod);
-                   
                    currentId++;
                }
                DeleteOdtFiles();
                return nodeCol;
            });
+        }
+        private static FreeMindNode ParseXmlNode(XmlNode xmlNode,int currentId)
+        {
+
+            #region Cycle var's declaration
+            Stack<int> tree = new Stack<int>();
+            int lastLayer = 0;
+            tree.Push(0);
+            #endregion Cycle declaration
+            #region Parent id calculation
+            int layer = Convert.ToInt32(xmlNode.Attributes["text:outline-level"].Value);
+            int parentId = 0;
+            if (layer < lastLayer)
+            {
+                int difference = lastLayer - layer;
+                for (int i = 0; i < difference; i++)
+                {
+                    tree.Pop();
+                }
+
+                tree.Pop();
+                parentId = tree.Peek();
+                tree.Push(currentId);
+                lastLayer = layer;
+            }
+            else if (layer > lastLayer)
+            {
+                int difference = layer - lastLayer;
+                parentId = tree.Peek();
+                tree.Push(currentId);
+                lastLayer = layer;
+            }
+            else if (layer == lastLayer)
+            {
+                tree.Pop();
+                parentId = tree.Peek();
+                tree.Push(currentId);
+                lastLayer = layer;
+            }
+            #endregion Parent id calculation
+            return new FreeMindNode(parentId, xmlNode.InnerText, currentId);
         }
         private static void ExtractOdt(string filePath)
         {
