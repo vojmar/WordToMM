@@ -7,3 +7,6 @@ C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.Pro
 C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.csproj.GenerateResource.Cache
 C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.exe
 C:\Users\DSroD\Documents\VS15Repo\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.pdb
+C:\Users\vojmar\Source\Repos\WordToMM\OdtToMm\OdtToMm\bin\Debug\OdtToMm.exe.config
+C:\Users\vojmar\Source\Repos\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.exe
+C:\Users\vojmar\Source\Repos\WordToMM\OdtToMm\OdtToMm\obj\Debug\OdtToMm.pdb

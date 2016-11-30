@@ -39,35 +39,35 @@ namespace OdtToMm
         private static Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
         {
             return Task.Run(() =>
-           {
-               FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
-               #region XML content extraction
-               XmlNodeList pNodes = odtContent.GetElementsByTagName("text:p");
-               XmlNode xmlTitleNode = pNodes[0];
-               FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
-               nodeCol.Add(titleNode);
-               XmlNodeList xmlNodes = odtContent.GetElementsByTagName("text:h");
-               #endregion XML Extraction
-               int currentId = 1;
-               foreach (XmlNode node in xmlNodes)
-               {
-                   FreeMindNode nod = ParseXmlNode(node, currentId);
-                   XmlNode sibling = node.NextSibling;
-                   while (sibling != null && sibling.Name == "text:p")
-                   {
-                       if (nod.Comment == null)
-                       {
-                           nod.Comment = new CommentCollection();
-                       }
-                       nod.Comment.Add(new Comment(sibling.InnerText, "p"));
-                       sibling = sibling.NextSibling;
-                   }
-                   nodeCol.Add(nod);
-                   currentId++;
-               }
-               DeleteOdtFiles();
-               return nodeCol;
-           });
+            {
+                FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
+                #region XML content extraction
+                XmlNodeList pNodes = odtContent.GetElementsByTagName("text:p");
+                XmlNode xmlTitleNode = pNodes[0];
+                FreeMindNode titleNode = new FreeMindNode(xmlTitleNode.InnerText);
+                nodeCol.Add(titleNode);
+                XmlNodeList xmlNodes = odtContent.GetElementsByTagName("text:h");
+                #endregion XML Extraction
+                int currentId = 1;
+                foreach (XmlNode node in xmlNodes)
+                {
+                    FreeMindNode nod = ParseXmlNode(node, currentId);
+                    XmlNode sibling = node.NextSibling;
+                    while (sibling != null && sibling.Name == "text:p")
+                    {
+                        if (nod.Comment == null)
+                        {
+                            nod.Comment = new CommentCollection();
+                        }
+                        nod.Comment.Add(new Comment(sibling.InnerText, "p"));
+                        sibling = sibling.NextSibling;
+                    }
+                    nodeCol.Add(nod);
+                    currentId++;
+                }
+                DeleteOdtFiles();
+                return nodeCol;
+            });
         }
         private static FreeMindNode ParseXmlNode(XmlNode xmlNode, int currentId)
         {
