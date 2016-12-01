@@ -7,15 +7,21 @@ using System.Xml.Linq;
 
 namespace OdtToMm
 {
-    static class MMParser
+    partial class MMParser
     {
+
+        public MMParser()
+        {
+
+        }
+
         /// <summary>
         /// Parses FreeMindNodeCollection and saves it as .mm file (overwrites existing file)
         /// </summary>
         /// <param name="path">Path to saved file</param>
         /// <param name="col">FreeMindNodeCollection to parse</param>
         /// <returns></returns>
-        public static async Task<bool> ParseAndSaveMM(string path, FreeMindNodeCollection col)
+        public async Task<bool> ParseAndSaveMM(string path, FreeMindNodeCollection col)
         {
 
             XDocument ts = await ParseCollection(col);
@@ -24,61 +30,83 @@ namespace OdtToMm
         }
 
         //PRIVATE CLASSES FOR CONVERTION MEANS
-        private static async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
+        private async Task<XDocument> ParseCollection(FreeMindNodeCollection col)
         {
+
             return await Task.Run(() =>
         {
+            MMParseStart(); //EVENT CALL
             XDocument parsed = new XDocument();
-                XElement map = new XElement("map");
-                map.SetAttributeValue("version", "1.0.1");
-                parsed.Add(map);
-                foreach (FreeMindNode n in col)
+            XElement map = new XElement("map");
+            map.SetAttributeValue("version", "1.0.1");
+            parsed.Add(map);
+            int x = 1;
+            foreach (FreeMindNode n in col)
             {
+
+                NodeParseStep(x, col.Count); //EVENT CALL
+                x++;
                 if (n.topNode)
                 {
                         parsed.Descendants("map").Single().Add(ParseNode(n));
                 }
                 else
                 {
-                        XElement p;
-                        try
-                        {
-                            p = parsed
+                    XElement p;
+                    try
+                    {
+                        p = parsed
                         .Descendants("node")
                         .Where(g => g.Attribute("ID").Value == n.parentId.ToString())
                         .Single();
-                        }
-                        catch (Exception e)
-                    {
-                            //if exception is invalid system operation
-                            p = map;
-                        }
-                        if (p != null)
-                        {
-                        p.Add(ParseNode(n));
                     }
-                    else
+                    catch (Exception e)
                     {
+                        MMParseEnded(false);
                         throw new Exception("Error parsing XElement in MMParser.ParseCollection()");
+                        
                     }
+                    if (p != null)
+                    {
+                        p.Add(ParseNode(n));
+                    } 
                 }
             }
+            MMParseEnded(true);
             return parsed;
             });
         }
 
-        private static XElement ParseNode(FreeMindNode f)
+        private XElement ParseNode(FreeMindNode f)
         {
             XElement n;
-                string tt = htmlParser.htmlParse(f.text);
-                n = new XElement("node");
-                n.SetAttributeValue("TEXT", tt);
-                n.SetAttributeValue("ID", f.id);
+            string tt = htmlParser.htmlParse(f.text);
+            n = new XElement("node");
+            n.SetAttributeValue("ID", f.id);
+            n.SetAttributeValue("TEXT", tt);
+            if(f.Comment != null)
+            {
+                XElement richcontent = new XElement("richcontent");
+                richcontent.SetAttributeValue("TYPE", "NOTE");
+                XElement html = new XElement("html");
+                XElement head = new XElement("head");
+                XElement body = new XElement("body");
+                foreach(Comment c in f.Comment)
+                {
+                    XElement p = new XElement(c.tag);
+                    p.Value = c.text;
+                    body.Add(p);
+                }
+                html.Add(head);
+                html.Add(body);
+                richcontent.Add(html);
+                n.Add(richcontent);
+            }
 
             return n;
         }
 
-        public static async Task<bool> MMParseAndSave(string path, FreeMindNodeCollection col)
+        public async Task<bool> MMParseAndSave(string path, FreeMindNodeCollection col)
         {
             try
             {
