@@ -1,0 +1,18 @@
+﻿<Window x:Class="OdtToMmWpf.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:OdtToMmWpf"
+        mc:Ignorable="d"
+        Title="MainWindow" Height="264.754" Width="359.426">
+    <Grid HorizontalAlignment="Left" VerticalAlignment="Top" Height="235" Margin="0,0,0,-1" Width="349">
+        <Button x:Name="ODTbtn" Grid.ColumnSpan="2" Content="Choose ODT file" HorizontalAlignment="Left" Height="42" Margin="10,10,-41,0" VerticalAlignment="Top" Width="111" Click="selOdt" Background="#FF9AE9F5" BorderThickness="0"/>
+        <Button x:Name="MMbtn" Grid.ColumnSpan="2" Content="Save as" HorizontalAlignment="Left" Height="42" Margin="10,57,-41,0" VerticalAlignment="Top" Width="111" Background="#FF9AE9F5" BorderThickness="0" Click="selSave"/>
+        <Button x:Name="Cbtn" Content="Convert" HorizontalAlignment="Left" Height="61" Margin="133,93,0,0" VerticalAlignment="Top" Width="210" Background="#FF55DE74" BorderThickness="0" Click="doStuff"/>
+        <TextBox x:Name="ODTtb" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="22" Margin="133,10,-263,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="210" Background="#FFBFE7F9" BorderThickness="0" MouseDown="selOdt"/>
+        <TextBox x:Name="MMtb" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="22" Margin="133,57,-263,0" TextWrapping="Wrap" Text="TextBox" VerticalAlignment="Top" Width="210" Background="#FFBFE7F9" BorderThickness="0" MouseDown="selSave"/>
+        <ProgressBar x:Name="progressBar1" Grid.ColumnSpan="2" HorizontalAlignment="Left" Height="34" Margin="10,167,-263,-59" VerticalAlignment="Top" Width="333"/>
+        <Label x:Name="label1" Grid.ColumnSpan="2" Content="Label" HorizontalAlignment="Left" Height="26" Margin="10,206,-263,-90" VerticalAlignment="Top" Width="333"/>
+    </Grid>
+</Window>
