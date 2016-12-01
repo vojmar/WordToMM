@@ -11,20 +11,22 @@ using System.Collections;
 
 namespace OdtToMm
 {
-    static class OdtParser
+    class OdtParser
     {
         #region var's declaration
+        public EventHandler nodeParsed;
+        public EventHandler nodesParsingCompleted;
+        public EventHandler nodesParsingStarted;
         private const string tmpPath = "temp";
         #endregion var's declaration
         /// <param name="odtFilePath">Full path to .odt file</param>
-        public static async Task<FreeMindNodeCollection> ParseOdt(string odtFilePath)
+        public async Task<FreeMindNodeCollection> ParseOdt(string odtFilePath)
         {
             ExtractOdt(odtFilePath);
             try
             {
                 var odtContent = await Task.Run(() => LoadOdt());
                 return await GetOdtContent(odtContent);
-                DeleteOdtFiles();
             }
             catch (Exception e)
             {
@@ -36,7 +38,7 @@ namespace OdtToMm
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
-        private static Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
+        private Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
         {
             return Task.Run(() =>
             {
@@ -99,14 +101,13 @@ namespace OdtToMm
                         sibling = sibling.NextSibling;
                     }
                     nodeCol.Add(nod);
-
                     currentId++;
                 }
                 DeleteOdtFiles();
                 return nodeCol;
             });
         }
-        private static void ExtractOdt(string filePath)
+        private void ExtractOdt(string filePath)
         {
             Directory.CreateDirectory(tmpPath);
             ZipFile.ExtractToDirectory(filePath, tmpPath);
@@ -120,6 +121,17 @@ namespace OdtToMm
             var odtContent = new XmlDocument();
             odtContent.Load(tmpPath + @"/content.xml");
             return odtContent;
+        }
+    }
+    public class NodeParsedEventArgs : EventArgs
+    {
+        public int parsedCount { get; private set; }
+        public int parsedTotal { get; private set; }
+        public int parsedReamining { get; private set; }
+        public byte percenage { get; private set; }
+        public NodeParsedEventArgs(int parsedCount, int parsedTotal)
+        {
+
         }
     }
 }
