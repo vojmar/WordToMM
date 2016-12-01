@@ -7,7 +7,7 @@ using System.Xml.Linq;
 
 namespace OdtToMm
 {
-    public partial class MMParser
+    partial class MMParser
     {
 
         public MMParser()
