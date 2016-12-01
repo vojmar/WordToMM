@@ -14,7 +14,7 @@ namespace OdtToMm
     class OdtParser
     {
         #region var's declaration
-        public EventHandler nodeParsed;
+        public EventHandler<NodeParsedEventArgs> nodeParsed;
         public EventHandler nodesParsingCompleted;
         public EventHandler nodesParsingStarted;
         private const string tmpPath = "temp";
@@ -42,6 +42,8 @@ namespace OdtToMm
         {
             return Task.Run(() =>
             {
+                if(nodesParsingStarted != null)
+                nodesParsingStarted(this,null);
                 FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
                 #region XML content extraction
                 XmlNodeList pNodes = odtContent.GetElementsByTagName("text:p");
@@ -58,6 +60,8 @@ namespace OdtToMm
                 #endregion Cycle declaration
                 foreach (XmlNode node in xmlNodes)
                 {
+                    if(nodeParsed!=null)
+                    nodeParsed(this,new NodeParsedEventArgs(currentId+1, xmlNodes.Count));
                     #region Parent id calculation
                     int layer = Convert.ToInt32(node.Attributes["text:outline-level"].Value);
                     int parentId = 0;
@@ -103,6 +107,8 @@ namespace OdtToMm
                     nodeCol.Add(nod);
                     currentId++;
                 }
+                if(nodesParsingCompleted!=null)
+                nodesParsingCompleted(this,null);
                 DeleteOdtFiles();
                 return nodeCol;
             });
@@ -131,7 +137,10 @@ namespace OdtToMm
         public byte percenage { get; private set; }
         public NodeParsedEventArgs(int parsedCount, int parsedTotal)
         {
-
+            this.parsedCount = parsedCount;
+            this.parsedTotal = parsedTotal;
+            this.parsedReamining = parsedTotal - parsedCount;
+            this.percenage = (byte)(parsedCount / parsedTotal * 100);
         }
     }
 }
