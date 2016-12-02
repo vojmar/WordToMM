@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ODTtoMM_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="570.288" Width="490.064">
+        Title="MainWindow" Height="570.288" Width="490.064" Icon="icon.ico">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF07276C"/>
