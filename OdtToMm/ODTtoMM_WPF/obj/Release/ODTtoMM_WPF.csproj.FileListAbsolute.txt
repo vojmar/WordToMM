@@ -1,0 +1,13 @@
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\bin\Release\ODTtoMM_WPF.exe.config
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\bin\Release\ODTtoMM_WPF.exe
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\bin\Release\ODTtoMM_WPF.pdb
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\MainWindow.g.cs
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\App.g.cs
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF_MarkupCompile.cache
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF_MarkupCompile.lref
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\MainWindow.baml
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF.g.resources
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF.Properties.Resources.resources
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF.csproj.GenerateResource.Cache
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF.exe
+C:\Users\vojmar\Source\Repos\WordToMM3\OdtToMm\ODTtoMM_WPF\obj\Release\ODTtoMM_WPF.pdb
