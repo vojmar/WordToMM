@@ -8,7 +8,7 @@ using System.Web;
 namespace OdtToMm
 {
     public static class htmlParser
-    {
+    {   
         /// <summary>
         /// hoď tam entitu a možná to vyhodí znak
         /// </summary>

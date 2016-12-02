@@ -121,8 +121,9 @@ namespace OdtToMm
                 (MMFilePath != "")
                )
             {
+                
                 //FreeMindNodeCollection fmnCollection = await OdtParser.ParseOdt(ODTFilePath);
-                //await mmparser.ParseAndSaveMM(MMFilePath, fmnCollection);
+                await mmparser.ParseAndSaveMM(MMFilePath, null);
             }
         }
     }
