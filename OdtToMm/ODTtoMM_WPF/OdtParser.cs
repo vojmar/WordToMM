@@ -9,14 +9,14 @@ using System.IO.Compression;
 using System.Xml.Linq;
 using System.Collections;
 
-namespace OdtToMm
+namespace ODTtoMM_WPF
 {
     class OdtParser
     {
         #region var's declaration
-        public EventHandler<NodeParsedEventArgs> nodeParsed;
-        public EventHandler nodesParsingCompleted;
-        public EventHandler nodesParsingStarted;
+        public event EventHandler<NodeParsedEventArgs> nodeParsed;
+        public event EventHandler nodesParsingCompleted;
+        public event EventHandler nodesParsingStarted;
         private const string tmpPath = "temp";
         #endregion var's declaration
         /// <param name="odtFilePath">Full path to .odt file</param>
@@ -42,8 +42,8 @@ namespace OdtToMm
         {
             return Task.Run(() =>
             {
-                if(nodesParsingStarted != null)
-                nodesParsingStarted(this,null);
+                if (nodesParsingStarted != null)
+                    nodesParsingStarted(this, null);
                 FreeMindNodeCollection nodeCol = new FreeMindNodeCollection();
                 #region XML content extraction
                 XmlNodeList pNodes = odtContent.GetElementsByTagName("text:p");
@@ -60,8 +60,8 @@ namespace OdtToMm
                 #endregion Cycle declaration
                 foreach (XmlNode node in xmlNodes)
                 {
-                    if(nodeParsed!=null)
-                    nodeParsed(this,new NodeParsedEventArgs(currentId+1, xmlNodes.Count));
+                    if (nodeParsed != null)
+                        nodeParsed(this, new NodeParsedEventArgs(currentId + 1, xmlNodes.Count));
                     #region Parent id calculation
                     int layer = Convert.ToInt32(node.Attributes["text:outline-level"].Value);
                     int parentId = 0;
@@ -107,8 +107,8 @@ namespace OdtToMm
                     nodeCol.Add(nod);
                     currentId++;
                 }
-                if(nodesParsingCompleted!=null)
-                nodesParsingCompleted(this,null);
+                if (nodesParsingCompleted != null)
+                    nodesParsingCompleted(this, null);
                 DeleteOdtFiles();
                 return nodeCol;
             });
@@ -134,13 +134,13 @@ namespace OdtToMm
         public int parsedCount { get; private set; }
         public int parsedTotal { get; private set; }
         public int parsedReamining { get; private set; }
-        public byte percenage { get; private set; }
+        public byte percentage { get; private set; }
         public NodeParsedEventArgs(int parsedCount, int parsedTotal)
         {
             this.parsedCount = parsedCount;
             this.parsedTotal = parsedTotal;
             this.parsedReamining = parsedTotal - parsedCount;
-            this.percenage = (byte)(parsedCount / parsedTotal * 100);
+            this.percentage = (byte)(parsedCount / parsedTotal * 100);
         }
     }
 }

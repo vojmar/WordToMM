@@ -5,7 +5,7 @@ using System.Text;
 using System.Windows.Forms;
 using System.Web;
 
-namespace OdtToMm
+namespace ODTtoMM_WPF
 {
     public static class htmlParser
     {   

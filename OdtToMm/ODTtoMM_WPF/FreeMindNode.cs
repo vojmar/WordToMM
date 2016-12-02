@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace OdtToMm
+namespace ODTtoMM_WPF
 {
     /// <summary>
     /// Basic data format for WordToMM, used for storing data parsed from word and provide readable format for parsing to mm.

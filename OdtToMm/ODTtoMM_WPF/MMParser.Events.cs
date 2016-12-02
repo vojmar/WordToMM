@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OdtToMm
+namespace ODTtoMM_WPF
 {
     //EVENTS
     partial class MMParser
@@ -24,7 +24,7 @@ namespace OdtToMm
 
         internal void MMParseEnded(bool success) => OnEvent(OnMMParseEnded, new MMParseEndedEventArgs(success));
 
-        
+
 
         //MAIN CALLER
         private void OnEvent(EventHandler handler)
@@ -45,11 +45,13 @@ namespace OdtToMm
     {
         public int CurrentCount { get; private set; }
         public int NodeCount { get; private set; }
+        public byte percentage { get; private set; }
 
         public NodeParseStepEventArgs(int CurrentCount, int NodeCount)
         {
             this.CurrentCount = CurrentCount;
             this.NodeCount = NodeCount;
+            percentage = (byte)(CurrentCount / NodeCount * 100);
         }
     }
     /// <summary>

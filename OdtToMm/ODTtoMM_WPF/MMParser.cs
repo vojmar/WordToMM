@@ -5,7 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Xml.Linq;
 
-namespace OdtToMm
+namespace ODTtoMM_WPF
 {
     partial class MMParser
     {
