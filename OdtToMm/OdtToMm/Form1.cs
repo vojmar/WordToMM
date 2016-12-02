@@ -17,7 +17,7 @@ namespace OdtToMm
         private MMParser mmparser;
         private string ODTFilePath;
         private string MMFilePath;
-        
+
         //DELEGATES FOR THREAD-SAFE OPERATIONS
         delegate void Form1Callback<T>(T args);
 
@@ -26,7 +26,7 @@ namespace OdtToMm
         {
             InitializeComponent();
             ODTofd = new OpenFileDialog();
-            ODTofd.Filter = "Odt files |*.odt|"+
+            ODTofd.Filter = "Odt files |*.odt|" +
                 "Word files |*.doc;*.docx|" +
                 "All files (*.*)|*.*";
             ODTofd.Multiselect = false;
@@ -56,9 +56,9 @@ namespace OdtToMm
 
         private void Mmparser_OnMMParseStarted(object sender, EventArgs e)
         {
-            if(label1.InvokeRequired)
+            if (label1.InvokeRequired)
             {
-                Form1Callback<string> editText = new Form1Callback<string>((text)=>
+                Form1Callback<string> editText = new Form1Callback<string>((text) =>
                 {
                     label1.Text = text;
                 });
@@ -84,7 +84,8 @@ namespace OdtToMm
                 {
                     progressBar1.Value += num;
                 });
-                this.Invoke(addDel, new object[] { add });                }
+                this.Invoke(addDel, new object[] { add });
+            }
             else //IF IT IS SAFE TO CALL (should never happen, but who knows)
             {
                 progressBar1.Value += add;
@@ -109,7 +110,7 @@ namespace OdtToMm
             }
         }
 
-        
+
 
         private async void Cbtn_Click(object sender, EventArgs e)
         {
@@ -120,8 +121,8 @@ namespace OdtToMm
                 (MMFilePath != "")
                )
             {
-                FreeMindNodeCollection fmnCollection = await OdtParser.ParseOdt(ODTFilePath);
-                await mmparser.ParseAndSaveMM(MMFilePath, fmnCollection);
+                //FreeMindNodeCollection fmnCollection = await OdtParser.ParseOdt(ODTFilePath);
+                //await mmparser.ParseAndSaveMM(MMFilePath, fmnCollection);
             }
         }
     }
