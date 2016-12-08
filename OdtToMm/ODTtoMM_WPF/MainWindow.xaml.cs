@@ -49,10 +49,12 @@ namespace ODTtoMM_WPF
             if (e.successful)
             {
                 System.Windows.MessageBox.Show("Conversion completed!");
+                Dispatcher.Invoke(() => conversionPB.Value = 100);
             }
             else
             {
                 System.Windows.MessageBox.Show("Failed to convert file!");
+                Dispatcher.Invoke(() => conversionPB.Value = 0);
             }
         }
 

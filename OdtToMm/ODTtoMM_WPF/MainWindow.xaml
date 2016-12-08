@@ -69,12 +69,12 @@
                 </LinearGradientBrush>
             </Button.Background>
         </Button>
-        <ProgressBar x:Name="conversionPB" Margin="10,14,10,10" Grid.Row="1" Grid.ColumnSpan="2">
+        <ProgressBar x:Name="conversionPB" Margin="10,14,10,10" Grid.Row="1" Grid.ColumnSpan="2" BorderThickness="3">
             <ProgressBar.Foreground>
-                <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
-                    <GradientStop Color="#FF595959" Offset="0.264"/>
-                    <GradientStop Color="White" Offset="0.86"/>
-                    <GradientStop Color="#FFE0E0E0" Offset="0.108"/>
+                <LinearGradientBrush EndPoint="0.5,1" MappingMode="RelativeToBoundingBox" StartPoint="0.5,0">
+                    <GradientStop Color="#FF1CCF00" Offset="0.343"/>
+                    <GradientStop Color="#FF0D5701" Offset="0.87"/>
+                    <GradientStop Color="#FF5DFF00" Offset="0.108"/>
                 </LinearGradientBrush>
             </ProgressBar.Foreground>
             <ProgressBar.Background>
