@@ -5,7 +5,8 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:ODTtoMM_WPF"
         mc:Ignorable="d"
-        Title="MainWindow" Height="570.288" Width="490.064" Icon="icon.ico">
+        Title="OdtToMM!!!
+        " Height="570.288" Width="490.064" Icon="icon.ico">
     <Window.Background>
         <LinearGradientBrush EndPoint="0.5,1" StartPoint="0.5,0">
             <GradientStop Color="#FF07276C"/>
@@ -94,6 +95,7 @@
             </Button.Background>
         </Button>
         <Image x:Name="logoImage" Margin="10" Source="Converter logo.png" Grid.Row="3" Grid.ColumnSpan="2"/>
+        <TextBlock x:Name="textBlock" Margin="10,14,0,0" Grid.Row="1" TextWrapping="Wrap" Text="Ready!" VerticalAlignment="Top" Grid.ColumnSpan="2" Height="29" Width="462" TextAlignment="Center" FontSize="16"/>
 
     </Grid>
 </Window>

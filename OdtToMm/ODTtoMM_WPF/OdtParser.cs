@@ -11,12 +11,15 @@ using System.Collections;
 
 namespace ODTtoMM_WPF
 {
-    class OdtParser
+    public class OdtParser
     {
         #region var's declaration
         public event EventHandler<NodeParsedEventArgs> nodeParsed;
         public event EventHandler nodesParsingCompleted;
         public event EventHandler nodesParsingStarted;
+        public event EventHandler<OdtExtractedEventArgs> odtExtracted;
+        public event EventHandler<OdtLoadedEventArgs> odtLoaded;
+        public event EventHandler started;
         private const string tmpPath = "temp";
         #endregion var's declaration
         /// <param name="odtFilePath">Full path to .odt file</param>
@@ -38,9 +41,9 @@ namespace ODTtoMM_WPF
         /// <summary>
         /// Returns collection of nodes stored in .odt file
         /// </summary>
-        private Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
+        private async Task<FreeMindNodeCollection> GetOdtContent(XmlDocument odtContent)
         {
-            return Task.Run(() =>
+            return await Task.Run(() =>
             {
                 if (nodesParsingStarted != null)
                     nodesParsingStarted(this, null);
@@ -117,18 +120,41 @@ namespace ODTtoMM_WPF
         {
             Directory.CreateDirectory(tmpPath);
             ZipFile.ExtractToDirectory(filePath, tmpPath);
+            //TBD: KONTROLA EXTRAKCE, ODESLÁNÍ PATŘIČNÝCH DAT
+            odtExtracted(this, new OdtExtractedEventArgs(true));
         }
-        private static void DeleteOdtFiles()
+        private void DeleteOdtFiles()
         {
             Directory.Delete(tmpPath, true);
         }
-        private static XmlDocument LoadOdt()
+        private XmlDocument LoadOdt()
         {
             var odtContent = new XmlDocument();
             odtContent.Load(tmpPath + @"/content.xml");
+            //TBD: KONTROLA NAČTENÍ, ODESLÁNÍ PATŘIČNÝCH DAT
+            odtLoaded(this, new OdtLoadedEventArgs(true));
             return odtContent;
         }
     }
+
+    public class OdtExtractedEventArgs : EventArgs
+    {
+        public bool success { get; private set; }
+        public OdtExtractedEventArgs(bool success)
+        {
+            this.success = success;
+        }
+    }
+
+    public class OdtLoadedEventArgs : EventArgs
+    {
+        public bool success { get; private set; }
+        public OdtLoadedEventArgs(bool success)
+        {
+            this.success = success;
+        }
+    }
+
     public class NodeParsedEventArgs : EventArgs
     {
         public int parsedCount { get; private set; }

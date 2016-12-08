@@ -33,9 +33,18 @@ namespace ODTtoMM_WPF
             InitializeComponent();
             odtParser = new OdtParser();
             mmParser = new MMParser();
+
+            //EVENTS
+            odtParser.odtExtracted += OdtParser_odtExtracted;
+            odtParser.odtLoaded += OdtParser_odtLoaded;
             odtParser.nodeParsed += OdtParser_nodeParsed;
+            odtParser.started += OdtParser_started;
+
+            mmParser.OnMMParseStarted += MmParser_OnMMParseStarted;
             mmParser.OnNodeParseStep += MmParser_OnNodeParseStep;
             mmParser.OnMMParseEnded += MmParser_OnMMParseEnded;
+
+
             ODTofd = new OpenFileDialog();
             ODTofd.Filter = "Odt files |*.odt|" +
                 "Word files |*.doc;*.docx|" +
@@ -44,17 +53,71 @@ namespace ODTtoMM_WPF
             MMsfd = new SaveFileDialog();
         }
 
+        private void OdtParser_started(object sender, EventArgs e)
+        {
+            if (!CheckAccess())
+            {
+                Dispatcher.Invoke(() => { textBlock.Text = "Extracting ODT"; });
+                return;
+            }
+            textBlock.Text = "Extracting ODT";
+        }
+
+        private void MmParser_OnMMParseStarted(object sender, EventArgs e)
+        {
+            if (!CheckAccess())
+            {
+                Dispatcher.Invoke(() => { textBlock.Text = "Creating MindMap"; });
+                return;
+            }
+            textBlock.Text = "Creating MindMap";
+        }
+
+        private void OdtParser_odtLoaded(object sender, OdtLoadedEventArgs e)
+        {
+            if (e.success)
+            {
+                if (!CheckAccess())
+                {
+                    Dispatcher.Invoke(() => { conversionPB.Value = 50; textBlock.Text = "Parsing ODT"; });
+                    return;
+                }
+                conversionPB.Value = 50;
+                textBlock.Text = "Parsing ODT";
+            }
+            else
+            {
+                //TBD
+            }
+        }
+
+        private void OdtParser_odtExtracted(object sender, OdtExtractedEventArgs e)
+        {
+            if (e.success)
+            {
+                if (!CheckAccess())
+                {
+                    Dispatcher.Invoke(() => { conversionPB.Value = 25; textBlock.Text = "Loading  ODT data"; });
+                    return;
+                }
+                conversionPB.Value = 25;
+                textBlock.Text = "Loading  ODT data";
+            }
+            else
+            {
+                //TBD
+            }
+        }
+
         private void MmParser_OnMMParseEnded(object sender, MMParseEndedEventArgs e)
         {
             if (e.successful)
             {
-                System.Windows.MessageBox.Show("Conversion completed!");
-                Dispatcher.Invoke(() => conversionPB.Value = 100);
+                Dispatcher.Invoke(() => { conversionPB.Value = 100; textBlock.Text = "Conversion completed"; });
             }
             else
             {
-                System.Windows.MessageBox.Show("Failed to convert file!");
-                Dispatcher.Invoke(() => conversionPB.Value = 0);
+                Dispatcher.Invoke(() => { conversionPB.Value = 0; textBlock.Text = "Failed to convert file!"; });
             }
         }
 
@@ -62,20 +125,20 @@ namespace ODTtoMM_WPF
         {
             if (!CheckAccess())
             {
-                Dispatcher.Invoke(() => conversionPB.Value = e.percentage / 2 + 50);
+                Dispatcher.Invoke(() => { conversionPB.Value = e.percentage / 4 + 75; });
                 return;
             }
-            conversionPB.Value = e.percentage / 2 + 50;
+            conversionPB.Value = e.percentage / 4 + 75;
         }
 
         private void OdtParser_nodeParsed(object sender, NodeParsedEventArgs e)
         {
             if (!CheckAccess())
             {
-                Dispatcher.Invoke(() => conversionPB.Value = e.percentage / 2);
+                Dispatcher.Invoke(() => conversionPB.Value = e.percentage / 4 + 50);
                 return;
             }
-            conversionPB.Value = e.percentage / 2;
+            conversionPB.Value = e.percentage / 4 + 50;
         }
 
         private void exitBtn_Click(object sender, RoutedEventArgs e)

@@ -12,3 +12,17 @@ S:\Programovani\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.Properties.Resour
 S:\Programovani\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.csproj.GenerateResource.Cache
 S:\Programovani\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.exe
 S:\Programovani\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.pdb
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\bin\Debug\ODTtoMM_WPF.exe.config
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.exe
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.pdb
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\bin\Debug\ODTtoMM_WPF.exe
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\bin\Debug\ODTtoMM_WPF.pdb
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.csprojResolveAssemblyReference.cache
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\MainWindow.g.cs
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\App.g.cs
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF_MarkupCompile.cache
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF_MarkupCompile.lref
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\MainWindow.baml
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.g.resources
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.Properties.Resources.resources
+C:\Users\DSroD\Documents\VS15Repo\WTMM\OdtToMm\ODTtoMM_WPF\obj\Debug\ODTtoMM_WPF.csproj.GenerateResource.Cache
